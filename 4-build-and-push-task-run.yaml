@@ -1,0 +1,20 @@
+apiVersion: pipeline.knative.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: build-docker-image-from-git-source-task-run
+spec:
+  serviceAccount: build-pipeline
+  taskRef:
+    name: build-docker-image-from-git-source
+  trigger:
+    type: manual
+  inputs:
+    resources:
+      - name: source
+        resourceRef:
+          name: source
+  outputs:
+    resources:
+      - name: builtImage
+        resourceRef:
+          name: pipeline-golang-sample-image
